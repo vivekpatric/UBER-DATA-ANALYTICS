@@ -46,14 +46,37 @@ theme(legend.position = "none",
       plot.subtitle = element_text(hjust = 0.5)) + 
 scale_y_continuous(labels=comma)
 # Aggregate the data by month and hour
-month_hour_data <- data %>% group_by(month, hour) %>%  dplyr::summarize(Total = n())
+month_hour_data <- data %>% group_by(month, hour) %>%  
+dplyr::summarize(Total = n())
 
 ggplot(month_hour_data, aes(hour, Total, fill=month)) + 
 geom_bar(stat = "identity") + 
 ggtitle("Trips by Hour and Month") + 
 scale_y_continuous(labels = comma)
+#let's see september months data
+sept_hour_data <- data %>% 
+  group_by(month, hour) %>% 
+  filter(month=="Sep") %>%
+  summarise(Total =n())
+
+ggplot(sept_hour_data, aes(hour, Total, fill = hour)) + 
+  geom_bar( stat = "identity") +
+  ggtitle("Trips by Hour in Sept") +
+  scale_y_continuous(labels = comma)
+
+#let's see April data
+Apr_hour_data <- data %>% 
+  group_by(month, hour) %>% 
+  filter(month=="Apr") %>%
+  summarise(Total =n())
+
+ggplot(Apr_hour, aes(hour, Total, fill = hour)) + 
+  geom_bar( stat = "identity") +
+  ggtitle("Trips by Hour in Apr") +
+  scale_y_continuous(labels = comma)
 # Aggregate data by day of the month 
-day_data <- data %>% group_by(day) %>% dplyr::summarize(Trips = n())
+day_data <- data %>% group_by(day) %>% 
+dplyr::summarize(Trips = n())
 day_data
 # Plot the data for the day
 ggplot(day_data, aes(day, Trips)) + 
@@ -63,7 +86,8 @@ theme(legend.position = "none") +
 scale_y_continuous(labels = comma)
 # Collect data by day of the week and month
 
-day_month_data <- data %>% group_by(dayofweek, month) %>% dplyr::summarize(Trips = n())
+day_month_data <- data %>% group_by(dayofweek, month) %>% 
+dplyr::summarize(Trips = n())
 day_month_data
 # Plot the above data
 ggplot(day_month_data, aes(dayofweek, Trips, fill = month)) + 
@@ -71,10 +95,12 @@ geom_bar(stat = "identity", aes(fill = month), position = "dodge") +
 ggtitle("Trias by Day and Month") + 
 scale_y_continuous(labels = comma) + 
 scale_fill_manual(values = colors)
-month_data <- data %>% group_by(month) %>% dplyr::summarize(Total = n())
+month_data <- data %>% group_by(month) %>% 
+dplyr::summarize(Total = n())
 
 month_data
-day_hour_data <- data %>% group_by(day, hour) %>% dplyr::summarize(Total = n())
+day_hour_data <- data %>% group_by(day, hour) %>% 
+dplyr::summarize(Total = n())
 datatable(day_hour_data)
 # Plot a heatmap 
 
@@ -83,7 +109,8 @@ geom_tile(color = "white") +
 ggtitle("Heat Map by Hour and Day")
 # Collect data by month and day
 
-month_day_data <- data %>% group_by(month, day) %>% dplyr::summarize(Trips = n())
+month_day_data <- data %>% group_by(month, day) %>% 
+dplyr::summarize(Trips = n())
 month_day_data
 # Plot a heatmap 
 
